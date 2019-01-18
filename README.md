@@ -1,16 +1,15 @@
-# ruokaholvi
-Rukaholvi on keskitetty sovellus kaikkeen ruokaan liittyvään. Käyttäjä pystyy lisämään tuotteita, joita häneltä 
-löytyy kaapista. Sovellukseen pystyy myös lisämään sekä katsomaan muiden käyttäjien reseptejä. Näitä reseptejä näytetään 
-käyttäjälle hänen tuotteidena perusteella. Myös ostoslistojen teko on mahdollista. Tällöin kaupassa ruksaamasi 
-tuotteet siirtyvät automaattisesti käyttäjän omiin tuotteisiin. Ruokaholvi auttaa myös ruokahävikissä. Tuotteeseen voi 
-lisätä parasta ennen päiväyksen, jolloinka sovellus näyttää tuotteet, jotka ovat lähiaikoina menossa vanhaksi ja ehdottaa 
-tuotteelle eri reseptejä. Lisäksi omasta profiilista voi seurata oman ruokahävikin määrää.  
+# Ruokaholvi
+Rukaholvi on keskitetty sovellus kaikkeen ruokaan liittyvään. Käyttäjä pystyy lisämään sovellukseen tuotteitansa ja reseptejään. Omien reseptien lisäksi sovelluksessa on mahdollista käyttää muiden käyttäjien reseptejä. Reseptejä näytetään 
+käyttäjälle riippuen siitä, mitä tuotteita häneltä jo löytyy. Myös ostoslistojen teko on mahdollista. Tällöin kaupassa ruksatut 
+tuotteet siirtyvät automaattisesti käyttäjän omiin tuotteisiin.
+
+Ruokaholvin tavoitteisiin kuuluu myös ruokahävikin vähentäminen. Tuotteisiin voi lisätä parasta ennen päiväyksen, jolloinka sovellus näyttää käyttäjälle lähiaikoina huonoksi menevät tuotteet ja ehdottaa reseptejä, joissa tuotteita voisi käyttää. Omasta profiilista on lisäksi mahdollista seurata oman ruokahävikin määrää.  
 
 Toimintoja:  
     • Kirjautuminen  
     • Tuotteiden lisääminen, poistaminen ja muokkaaminen  
     • Reseptien lisääminen, poistaminen ja muokkaaminen  
     • Reseptien listaus omista tuotteista  
-    • Ostoslistaan lisääminen, poistaminen ja muokkaaminen  
+    • Ostoslistojen luonti sekä niiden muokkaaminen
     • Tuotteiden listaus 'parasta ennen' päivämäärän mukaan  
     • Raportti omasta ruokahävikistä  
