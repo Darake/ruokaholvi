@@ -10,6 +10,6 @@ Toimintoja:
     • Tuotteiden lisääminen, poistaminen ja muokkaaminen  
     • Reseptien lisääminen, poistaminen ja muokkaaminen  
     • Reseptien listaus omista tuotteista  
-    • Ostoslistojen luonti sekä niiden muokkaaminen
+    • Ostoslistojen luonti sekä niiden muokkaaminen  
     • Tuotteiden listaus 'parasta ennen' päivämäärän mukaan  
     • Raportti omasta ruokahävikistä  
