@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>Item</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('items_set_used', item_id=item.id) }}">
+                    <input type="submit" value="Use item!" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
