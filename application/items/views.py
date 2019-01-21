@@ -21,7 +21,7 @@ def items_set_used(item_id):
 
 @app.route("/items/", methods=["POST"])
 def items_create():
-    i = Item(request.form.get("name"))
+    i = Item(request.form.get("name"), request.form.get("best_before"))
 
     db.session().add(i)
     db.session().commit()

@@ -2,7 +2,10 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('items_create') }}">
-    <input type="text" name="name"/>
+    <label for="name">Item:</label>
+    <input type="text" name="name" id="name"/>
+    <label for="best_before">Best before:</label>
+    <input type="text" name="best_before" id="best_before"/>
     <input type="submit" value="Add a new item"/>
 </form>
 {% endblock %}
