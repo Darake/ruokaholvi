@@ -4,11 +4,20 @@ from application.items.models import Item
 
 @app.route("/items", methods=["GET"])
 def items_index():
-    return render_template("items/list.html", items = Item.query.filter(Item.used == False))
+    return render_template("items/list.html", items = Item.query.filter(Item.used == False, Item.expired == False))
 
 @app.route("/items/new/")
 def items_form():
     return render_template("items/new.html")
+
+@app.route("/items/<item_id>/", methods=["POST"])
+def items_set_expired(item_id):
+    i = Item.query.get(item_id)
+    i.expired = True
+
+    db.session().commit()
+
+    return redirect(url_for("items_index"))
 
 @app.route("/items/<item_id>/", methods=["POST"])
 def items_set_used(item_id):
