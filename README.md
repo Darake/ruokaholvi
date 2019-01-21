@@ -6,10 +6,14 @@ tuotteet siirtyvät automaattisesti käyttäjän omiin tuotteisiin.
 Ruokaholvin tavoitteisiin kuuluu myös ruokahävikin vähentäminen. Tuotteisiin voi lisätä parasta ennen päiväyksen, jolloinka sovellus näyttää käyttäjälle lähiaikoina huonoksi menevät tuotteet ja ehdottaa reseptejä, joissa tuotteita voisi käyttää. Omasta profiilista on lisäksi mahdollista seurata oman ruokahävikin määrää.  
 
 Toimintoja:  
-    • Kirjautuminen  
-    • Tuotteiden lisääminen, poistaminen ja muokkaaminen  
-    • Reseptien lisääminen, poistaminen ja muokkaaminen  
-    • Reseptien listaus omista tuotteista  
-    • Ostoslistojen luonti sekä niiden muokkaaminen  
-    • Tuotteiden listaus 'parasta ennen' päivämäärän mukaan  
-    • Raportti omasta ruokahävikistä  
+  *Kirjautuminen  
+  *Tuotteiden lisääminen, poistaminen ja muokkaaminen  
+  *Reseptien lisääminen, poistaminen ja muokkaaminen  
+  *Reseptien listaus omista tuotteista  
+  *Ostoslistojen luonti sekä niiden muokkaaminen  
+  *Tuotteiden listaus 'parasta ennen' päivämäärän mukaan  
+  *Raportti omasta ruokahävikistä  
+
+[Käyttötapaukset](/documentation/'User Stories.md')  
+[Tietokantakaavio](/documentation/'database diagram.png')  
+[Linkki sovellukseen](https://ruokaholvi.herokuapp.com/)  
