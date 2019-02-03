@@ -1,6 +1,8 @@
-from application import app, db
 from flask import redirect, render_template, request, url_for
+
+from application import app, db
 from application.items.models import Item
+from application.items.forms import ItemForm
 
 @app.route("/items", methods=["GET"])
 def items_index():
@@ -8,7 +10,7 @@ def items_index():
 
 @app.route("/items/new/")
 def items_form():
-    return render_template("items/new.html")
+    return render_template("items/new.html", form = ItemForm())
 
 @app.route("/items/<item_id>/", methods=["POST"])
 def items_set_expired(item_id):
@@ -30,7 +32,12 @@ def items_set_used(item_id):
 
 @app.route("/items/", methods=["POST"])
 def items_create():
-    i = Item(request.form.get("name"), request.form.get("best_before"))
+    form = ItemForm(request.form)
+
+    if not form.validate():
+        return render_template("items/new.html", form = form)
+    
+    i = Item(form.name.data, form.bestBefore.data)
 
     db.session().add(i)
     db.session().commit()

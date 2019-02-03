@@ -2,10 +2,25 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('items_create') }}">
-    <label for="name">Item:</label>
-    <input type="text" name="name" id="name"/>
-    <label for="best_before">Best before:</label>
-    <input type="text" name="best_before" id="best_before"/>
-    <input type="submit" value="Add a new item"/>
+    <table>
+        <tr>
+            <td>{{ form.name.label }}</td>
+            <td>{{ form.name }}</td>
+            <td>
+                <ul>
+                    {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>{{ form.bestBefore.label }}</td>
+            <td>{{ form.bestBefore }}</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Add a new item"/></td>
+        </tr>
+    </table>
 </form>
 {% endblock %}
