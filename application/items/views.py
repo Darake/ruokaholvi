@@ -1,7 +1,7 @@
 import datetime
 
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.items.models import Item
@@ -57,6 +57,7 @@ def items_create():
                 dateError = "Invalid date")
     
     i = Item(form.name.data, bestBefore)
+    i.account_id = current_user.id
 
     db.session().add(i)
     db.session().commit()
