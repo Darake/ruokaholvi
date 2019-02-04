@@ -16,4 +16,8 @@ Toimintoja:
 
 [Käyttötapaukset](https://github.com/Darake/ruokaholvi/blob/master/documentation/User%20Stories.md)  
 [Tietokantakaavio](https://github.com/Darake/ruokaholvi/blob/master/documentation/database%20diagram.png)  
+
 [Linkki sovellukseen](https://ruokaholvi.herokuapp.com/)  
+Testikäyttäjätunnukset:  
+Username: user  
+Password: user
