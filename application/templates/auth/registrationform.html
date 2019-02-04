@@ -2,6 +2,7 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('auth_register') }}" >
+    {{ error }}
     <table>
         <tr>
             <td>{{ form.name.label }}</td>

@@ -36,6 +36,10 @@ def auth_register():
     if not form.validate():
         return render_template("auth/registrationform.html", form = form)
 
+    if User.query.filter_by(username=form.username.data).first():
+        return render_template("auth/registrationform.html", form = form,
+                                error = 'Username taken')
+
     u = User(form.name.data, form.username.data, form.password.data)
 
     db.session().add(u)
