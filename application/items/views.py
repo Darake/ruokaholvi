@@ -17,7 +17,7 @@ def items_index():
 def items_form():
     return render_template("items/new.html", form = ItemForm())
 
-@app.route("/items/<item_id>/", methods=["POST"])
+@app.route("/items/expire/<item_id>/", methods=["POST"])
 @login_required
 def items_set_expired(item_id):
     i = Item.query.get(item_id)
@@ -27,13 +27,21 @@ def items_set_expired(item_id):
 
     return redirect(url_for("items_index"))
 
-@app.route("/items/<item_id>/", methods=["POST"])
+@app.route("/items/use/<item_id>/", methods=["POST"])
 @login_required
 def items_set_used(item_id):
     i = Item.query.get(item_id)
     i.used = True
     
     db.session().commit()
+
+    return redirect(url_for("items_index"))
+
+@app.route("/items/delete/<item_id>/", methods=["POST"])
+@login_required
+def items_delete(item_id):
+    Item.query.filter_by(id=item_id).delete()
+    db.session.commit()
 
     return redirect(url_for("items_index"))
 
