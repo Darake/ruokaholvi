@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, url_for
+import datetime
 
 from application import app, db
 from application.items.models import Item
@@ -33,11 +34,22 @@ def items_set_used(item_id):
 @app.route("/items/", methods=["POST"])
 def items_create():
     form = ItemForm(request.form)
+    bestBefore = None
 
     if not form.validate():
         return render_template("items/new.html", form = form)
+
+    if (form.day.data != 0 and form.month.data != 0):
+        try:
+            bestBefore = datetime.date(
+                form.year.data, 
+                form.month.data, 
+                form.day.data)
+        except:
+            return render_template("items/new.html", form = form,
+                dateError = "Invalid date")
     
-    i = Item(form.name.data, form.bestBefore.data)
+    i = Item(form.name.data, bestBefore)
 
     db.session().add(i)
     db.session().commit()

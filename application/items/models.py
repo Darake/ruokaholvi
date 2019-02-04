@@ -4,7 +4,7 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String(144), nullable=False)
-    best_before = db.Column(db.String(144), nullable=True)
+    best_before = db.Column(db.Date, nullable=True)
     used = db.Column(db.Boolean, nullable=False)
     expired = db.Column(db.Boolean, nullable=False)
 

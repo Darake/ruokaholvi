@@ -15,8 +15,13 @@
             </td>
         </tr>
         <tr>
-            <td>{{ form.bestBefore.label }}</td>
-            <td>{{ form.bestBefore }}</td>
+            <td>{{ form.day.label }}</td>
+            <td>
+                {{ form.day }}
+                {{ form.month }}
+                {{ form.year }}
+            </td>
+            <td>{{ dateError }}</td>
         </tr>
         <tr>
             <td><input type="submit" value="Add a new item"/></td>
