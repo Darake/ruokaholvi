@@ -4,13 +4,14 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.items.models import Item
+from application.items.models import Item, UserItem
 from application.items.forms import ItemForm
 
 @app.route("/items", methods=["GET"])
 @login_required
 def items_index():
-    return render_template("items/list.html", items = Item.query.filter(Item.used == False, Item.expired == False))
+    return render_template("items/list.html", 
+        items = UserItem.list_users_items())
 
 @app.route("/items/new/")
 @login_required
@@ -20,8 +21,8 @@ def items_form():
 @app.route("/items/expire/<item_id>/", methods=["POST"])
 @login_required
 def items_set_expired(item_id):
-    i = Item.query.get(item_id)
-    i.expired = True
+    ui = UserItem.query.get(item_id)
+    ui.expired = True
 
     db.session().commit()
 
@@ -30,8 +31,8 @@ def items_set_expired(item_id):
 @app.route("/items/use/<item_id>/", methods=["POST"])
 @login_required
 def items_set_used(item_id):
-    i = Item.query.get(item_id)
-    i.used = True
+    ui = UserItem.query.get(item_id)
+    ui.used = True
     
     db.session().commit()
 
@@ -40,7 +41,7 @@ def items_set_used(item_id):
 @app.route("/items/delete/<item_id>/", methods=["POST"])
 @login_required
 def items_delete(item_id):
-    Item.query.filter_by(id=item_id).delete()
+    UserItem.query.filter_by(id=item_id).delete()
     db.session.commit()
 
     return redirect(url_for("items_index"))
@@ -49,8 +50,8 @@ def items_delete(item_id):
 @login_required
 def items_create():
     form = ItemForm(request.form)
+    
     bestBefore = None
-
     if not form.validate():
         return render_template("items/new.html", form = form)
 
@@ -64,10 +65,18 @@ def items_create():
             return render_template("items/new.html", form = form,
                 dateError = "Invalid date")
     
-    i = Item(form.name.data, bestBefore)
-    i.account_id = current_user.id
 
-    db.session().add(i)
+    ui = UserItem(bestBefore)
+    ui.account_id = current_user.id
+    try:
+        ui.item_id = Item.query.filter_by(name=form.name.data).first().id
+    except:
+        i = Item(form.name.data)
+        db.session().add(i)
+        db.session().commit()
+        ui.item_id = Item.query.filter_by(name=form.name.data).first().id
+    
+    db.session().add(ui)
     db.session().commit()
 
     return redirect(url_for("items_index"))
