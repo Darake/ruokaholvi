@@ -13,4 +13,4 @@ class BaseWithName(Base):
 
     __abstract__ = True
 
-    name = db.Column(db.String(144, collation='NOCASE'), nullable=False)                   
+    name = db.Column(db.String(144), nullable=False)                   
