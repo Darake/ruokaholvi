@@ -1,31 +1,57 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <table>
-        <tr>
-            <th>Item</th>
-            <th>Best before</th>
-        </tr>
+<div class="row">
+    <div class="col-sm-8">
         {% for item in items %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.best_before }}</td>
-            <td>
-                <form method="POST" action="{{ url_for('items_set_used', item_id=item.id) }}">
-                    <input type="submit" value="Use item!" />
-                </form>
-            </td>
-            <td>
-                <form method="POST" action="{{ url_for('items_set_expired', item_id=item.id) }}">
-                    <input type="submit" value="Expired!" />
-                </form>
-            </td>
-            <td>
-                <form method="POST" action="{{ url_for('items_delete', item_id=item.id) }}">
-                    <input type="submit" value="Delete!" />
-                </form>
-            </td>
-        </tr>
+        <div class="card mt-3">
+            <div class="card-header">
+                <b>{{ item.name }}</b>
+                <div class="dropdown float-right">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Edit
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <form method="POST" action="{{ url_for('items_set_used', item_id=item.id) }}">
+                            <input class="dropdown-item" type="submit" value="Item used" />
+                        </form>
+                        <form method="POST" action="{{ url_for('items_set_expired', item_id=item.id) }}">
+                            <input class="dropdown-item" type="submit" value="Expired" />
+                        </form>
+                        <form method="POST" action="{{ url_for('items_delete', item_id=item.id) }}">
+                            <input class="dropdown-item" type="submit" value="Delete" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% if item.best_before != None %}
+            <div class="card-body">Best before: {{ item.best_before }}</div>
+            {% endif %}
+
+        </div>
         {% endfor %}
-    </table>
+    </div>
+    <div class="col-sm-4">
+        <div class="card mt-3">
+            <div class="card-header">
+                <b>Add an item</b>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('items_create') }}">
+                    <div class="form-group">
+                        {{ form.name.label }}
+                        {{ form.name(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.best_before.label }}
+                        {{ form.best_before(type="date", class="form-control", min="2019-02-01") }}
+                    </div>
+                    <input class="btn btn-secondary" type="submit" value="Add a new item" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

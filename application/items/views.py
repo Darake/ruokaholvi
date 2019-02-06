@@ -11,12 +11,8 @@ from application.items.forms import ItemForm
 @login_required
 def items_index():
     return render_template("items/list.html", 
-        items = UserItem.list_users_items())
-
-@app.route("/items/new/")
-@login_required
-def items_form():
-    return render_template("items/new.html", form = ItemForm())
+        items = UserItem.list_users_items(),
+        form = ItemForm())
 
 @app.route("/items/expire/<item_id>/", methods=["POST"])
 @login_required
@@ -46,27 +42,17 @@ def items_delete(item_id):
 
     return redirect(url_for("items_index"))
 
-@app.route("/items/", methods=["POST"])
+@app.route("/items", methods=["POST"])
 @login_required
 def items_create():
     form = ItemForm(request.form)
-    
-    bestBefore = None
+
     if not form.validate():
-        return render_template("items/new.html", form = form)
+        return render_template("items/list.html", 
+        items = UserItem.list_users_items(),
+        form = form)
 
-    if (form.day.data != 0 and form.month.data != 0):
-        try:
-            bestBefore = datetime.date(
-                form.year.data, 
-                form.month.data, 
-                form.day.data)
-        except:
-            return render_template("items/new.html", form = form,
-                dateError = "Invalid date")
-    
-
-    ui = UserItem(bestBefore)
+    ui = UserItem(form.best_before.data)
     ui.account_id = current_user.id
     try:
         ui.item_id = Item.query.filter_by(name=form.name.data).first().id
