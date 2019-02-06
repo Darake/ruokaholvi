@@ -34,8 +34,8 @@ class UserItem(db.Model):
         stmt = text("SELECT user_item.id AS id, item.name AS name, user_item.best_before AS best_before FROM item, user_item"
                     " WHERE user_item.account_id = :user"
                     " AND item.id = user_item.item_id"
-                    " AND user_item.used = 0"
-                    " AND user_item.expired = 0"
+                    " AND user_item.used = false"
+                    " AND user_item.expired = false"
                     " ORDER BY (CASE WHEN user_item.best_before IS NULL THEN 1 ELSE 0 END) ASC,"
                     "   user_item.best_before ASC").params(user=current_user.id)
         res = db.engine.execute(stmt)
