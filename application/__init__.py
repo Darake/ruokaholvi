@@ -41,7 +41,5 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 # luodaan taulut tarvittaessa
-try:
-    db.create_all()
-except:
-    pass
+
+db.create_all()
