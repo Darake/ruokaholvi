@@ -35,7 +35,9 @@ class UserItem(db.Model):
                     " WHERE user_item.account_id = :user"
                     " AND item.id = user_item.item_id"
                     " AND user_item.used = 0"
-                    " AND user_item.expired = 0").params(user=current_user.id)
+                    " AND user_item.expired = 0"
+                    " ORDER BY (CASE WHEN user_item.best_before IS NULL THEN 1 ELSE 0 END) ASC,"
+                    "   user_item.best_before ASC").params(user=current_user.id)
         res = db.engine.execute(stmt)
 
         response = []
