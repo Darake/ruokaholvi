@@ -12,11 +12,11 @@ def auth_login():
 
     form = LoginForm(request.form)
 
+    if not form.validate():
+        return render_template("auth/loginform.html", form = form)
+
     user = User.query.filter_by(username=form.username.data,
                                 password=form.password.data).first()
-    if not user:
-        return render_template("auth/loginform.html", form = form,
-                                error = "No such username or password")
 
     login_user(user)
     return redirect(url_for("index"))   
@@ -35,10 +35,6 @@ def auth_register():
 
     if not form.validate():
         return render_template("auth/registrationform.html", form = form)
-
-    if User.query.filter_by(username=form.username.data).first():
-        return render_template("auth/registrationform.html", form = form,
-                                error = 'Username taken')
 
     u = User(form.name.data, form.username.data, form.password.data)
 

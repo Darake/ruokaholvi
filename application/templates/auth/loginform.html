@@ -2,15 +2,22 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('auth_login') }}">
-        <div class="form-group">
-            {{ form.username.label }}
-            {{ form.username(class="form-control") }}
+    <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
         <div class="form-group">
             {{ form.password.label }}
             {{ form.password(class="form-control") }}
         </div>
         <button type="submit" class="btn btn-black">Login</button>
-        
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('auth_register') }}';">Register</button>
 </form>
+
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('auth_register') }}';">Register</button>
+
+{% for error in form.password.errors %}
+<div class="alert alert-warning">
+    {{ error }}
+</div>
+{% endfor %}
+
 {% endblock %}

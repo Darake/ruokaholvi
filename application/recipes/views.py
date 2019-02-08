@@ -74,8 +74,6 @@ def recipes_ingredients(recipeId):
         db.session().flush()
         ingredient = Ingredient(recipeId, item.id)
 
-    app.logger.info(ingredient)
-
     db.session().add(ingredient)
     db.session().commit()
 
