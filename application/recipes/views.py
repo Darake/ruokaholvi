@@ -41,7 +41,6 @@ def recipes_create():
     except:
         url = None
 
-
     r = Recipe(form.name.data, form.instructions.data, url)
     r.account_id = current_user.id
 

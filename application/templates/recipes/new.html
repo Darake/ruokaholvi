@@ -16,4 +16,9 @@
         </div>
     </form>
 </div>
+{% for error in form.image.errors %}
+<div class="alert alert-warning">
+    {{ error }}
+</div>
+{% endfor %}
 {% endblock %}

@@ -2,7 +2,7 @@
 from flask import Flask
 app = Flask(__name__)
 
-# kansioiden määrittelyä
+# asetuksia
 import os
 app.static_folder = 'static'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
