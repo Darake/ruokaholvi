@@ -1,7 +1,7 @@
 from application import db
-from application.models import BaseWithName
+from application.models import Base, DatestampMixIn, NameMixIn
 
-class User(BaseWithName):
+class User(Base, DatestampMixIn, NameMixIn):
 
     __tablename__ = "account"
 
@@ -9,6 +9,7 @@ class User(BaseWithName):
     password = db.Column(db.String(144), nullable=False)
 
     items = db.relationship("UserItem", backref='account', lazy=True)
+    recipes = db.relationship("Recipe", backref='account', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name

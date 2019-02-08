@@ -1,21 +1,20 @@
 from application import db, app
-from application.models import BaseWithName
+from application.models import Base, NameMixIn
 
 from flask_login import current_user
 from sqlalchemy.sql import text
 
-class Item(BaseWithName):
+class Item(Base, NameMixIn):
 
     users = db.relationship("UserItem", backref='Item', lazy=True)
     
     def __init__(self, name):
         self.name = name
 
-class UserItem(db.Model):
+class UserItem(Base):
 
     __tablename__ = 'user_item'
 
-    id = db.Column(db.Integer, primary_key=True)
     best_before = db.Column(db.Date, nullable=True)
     used = db.Column(db.Boolean, nullable=False)
     expired = db.Column(db.Boolean, nullable=False)

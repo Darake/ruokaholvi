@@ -1,11 +1,16 @@
 # flask-sovellus
 from flask import Flask
 app = Flask(__name__)
+
+# kansioiden määrittelyä
+import os
 app.static_folder = 'static'
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # tietokanta
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
@@ -22,6 +27,9 @@ from application.items import views
 
 from application.auth import models
 from application.auth import views
+
+from application.recipes import models
+from application.recipes import views
 
 # kirjautuminen
 from application.auth.models import User

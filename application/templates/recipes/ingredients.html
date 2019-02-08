@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="card mt-3">
+    <div class="card-header">
+        Add ingredients to your recipe. </br>
+        Please use plural form when adding ingredients. </br>
+        <i>(e.g. Tomatoes -> Tomato, Jauhelihaa -> Jauheliha)</i>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('recipes_ingredients', recipeId=recipeId) }}">
+            <div class="input-group mb-3">
+                {{ form.ingredient(class="form-control", placeholder="Ingredient") }}
+                <div class="input-group-append">
+                    <input class="btn btn-secondary" type="submit" value="Add ingredient" />
+                </div>
+            </div>
+        </form>
+        <a href="{{ url_for('items_index') }}" class="btn btn-primary btn-lg btn-block">Complete</a>
+    </div>
+</div>
+
+{% for ingredient in ingredients %}
+<div class="card mt-2">
+    <div class="card-header">
+        <b>{{ ingredient }}</b>
+    </div>
+</div>
+{% endfor %}
+
+{% for error in form.ingredient.errors %}
+{{ error }}
+{% endfor %}
+
+{% endblock %}
