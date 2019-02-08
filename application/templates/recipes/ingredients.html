@@ -16,7 +16,6 @@
                 </div>
             </div>
         </form>
-        <a href="{{ url_for('recipes_show') }}" class="btn btn-primary btn-lg btn-block">Complete</a>
     </div>
 </div>
 
@@ -27,6 +26,8 @@
     </div>
 </div>
 {% endfor %}
+
+<a href="{{ url_for('recipes_show') }}" class="btn btn-primary btn-lg btn-block mt-3">Complete</a>
 
 {% for error in form.ingredient.errors %}
 {{ error }}

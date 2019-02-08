@@ -2,7 +2,7 @@
 
 {% block body %}
 {% for recipe in recipes %}
-<div class="media border mt-3">
+<a class="media border mt-3 text-dark" style="text-decoration: none" href="{{ url_for('recipe', recipeId=recipe.id) }}">
     {% if recipe.image != None %}
     <img src="{{ recipe.image }}" alt="recipe image" style="width:140px;">
     {% else %}
@@ -11,8 +11,7 @@
     <div class="media-body mt-2 ml-3">
         <h4>{{ recipe.name }}</h4>
     </div>
-
-</div>
+</a>
 
 {% endfor %}
 {% endblock %}

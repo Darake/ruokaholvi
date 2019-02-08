@@ -14,19 +14,7 @@ class Ingredient(Base):
         self.recipe_id = recipe_id
         self.item_id = item_id
 
-    @staticmethod
-    def list_recipes_ingredients(recipeId):
-        stmt = text("SELECT item.name FROM item, ingredient, recipe"
-                    " WHERE item.id = ingredient.item_id"
-                    " AND ingredient.recipe_id = :recipeId"
-                    " GROUP BY item.name").params(recipeId=recipeId)
-        res = db.engine.execute(stmt)
-
-        response = []
-        for row in res:
-            response.append(row[0])
-
-        return response
+    
 
 class Recipe(Base, DatestampMixIn, NameMixIn):
 
@@ -43,3 +31,17 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
         self.name = name
         self.instructions =instructions
         self.image = image
+
+    @staticmethod
+    def list_recipes_ingredients(recipeId):
+        stmt = text("SELECT item.name FROM item, ingredient, recipe"
+                    " WHERE item.id = ingredient.item_id"
+                    " AND ingredient.recipe_id = :recipeId"
+                    " GROUP BY item.name").params(recipeId=recipeId)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response

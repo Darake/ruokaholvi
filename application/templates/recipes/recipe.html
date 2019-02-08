@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="card-header mt-3">
+    <h1>{{ recipe.name }}</h1>
+</div>
+{% if recipe.image != None %}
+<img src="{{ recipe.image }}" alt="Recipe image" class="img-fluid mt-3">
+{% endif %}
+<div class="card mt-3">
+    <div class="card-header">
+        <h2>Ingredients</h2>
+    </div>
+    <div class="card-body">
+        {% for ingredient in ingredients %}
+        {{ ingredient }} </br>
+        {% endfor %}
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h2>Instructions</h2>
+    </div>
+    <div class="card-body">
+        <p>{{ recipe.instructions }}</p>
+    </div>
+</div>
+{% endblock %}
