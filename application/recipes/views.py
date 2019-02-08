@@ -9,6 +9,11 @@ from application.recipes.forms import RecipeForm, IngredientForm
 
 from cloudinary.uploader import upload
 
+@app.route("/recipes/", methods=["GET"])
+def recipes_show():
+    recipes = Recipe.query.all()
+    return render_template("/recipes/list.html", recipes=recipes)
+
 @app.route("/recipes/new", methods=["GET", "POST"])
 @login_required
 def recipes_create():
