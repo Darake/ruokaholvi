@@ -14,31 +14,59 @@ from cloudinary.uploader import upload
 @app.route("/recipes/<recipeId>/", methods=["GET"])
 @login_required
 def recipe(recipeId):
-    userId = Recipe.query.filter_by(id=recipeId).first().account_id
-    userRole = User.get_role(current_user.id)
-    authorizedToDelete = userId == current_user.id or userRole == 'admin'
-
     recipe = Recipe.query.get(recipeId)
     ingredients = Recipe.list_recipes_ingredients(recipeId)
 
     return render_template("/recipes/recipe.html",
                             recipe=recipe,
                             ingredients=ingredients,
-                            authorizedToDelete=authorizedToDelete)
+                            authorizedToDelete=recipeAuthorization(recipeId))
 
 @app.route("/recipes/<recipeId>/", methods=["POST"])
 @login_required
 def recipe_delete(recipeId):
-    userId = Recipe.query.filter_by(id=recipeId).first().account_id
-    userRole = User.get_role(current_user.id)
-    
-    if not (userId == current_user.id or userRole == 'admin'):
+    if not recipeAuthorization(recipeId):
         return redirect(url_for("recipes_show"))
 
     Recipe.query.filter_by(id=recipeId).delete()
     db.session().commit()
     
     return redirect(url_for("recipes_show"))
+
+@app.route("/recipes/<recipeId>/edit", methods=["GET"])
+@login_required
+def recipes_edit(recipeId):
+    if not recipeAuthorization(recipeId):
+        return redirect(url_for("recipes_show"))
+    
+    recipe = Recipe.query.get(recipeId)
+    form = RecipeForm()
+    form.instructions.data = recipe.instructions
+    form.name.data = recipe.name
+
+    return render_template("recipes/edit.html",
+                        form=form,
+                        recipeId=recipeId)
+
+@app.route("/recipes/<recipeId>/edit", methods=["POST"])
+@login_required
+def recipes_save_edit(recipeId):
+    form = RecipeForm(request.form)
+    
+    if not form.validate():
+        return render_template("/recipes/edit.html",
+                                form=form,
+                                recipeId=recipeId)
+
+    recipe = Recipe.query.get(recipeId)
+    
+    recipe.image = uploadImage(form.image.name) or recipe.image
+    recipe.name = form.name.data
+    recipe.instructions = form.instructions.data
+    
+    db.session.commit()
+
+    return redirect(url_for("recipes_ingredients", recipeId=recipeId))
 
 @app.route("/recipes/", methods=["GET"])
 def recipes_show():
@@ -55,12 +83,7 @@ def recipes_create():
     if not form.validate():
         return render_template("/recipes/new.html", form=form)
 
-    try:
-        file = request.files[form.image.name]
-        upload_result = upload(file)
-        url = upload_result['url']
-    except:
-        url = None
+    url = uploadImage(form.image.name)
 
     r = Recipe(form.name.data, form.instructions.data, url)
     r.account_id = current_user.id
@@ -99,3 +122,23 @@ def recipes_ingredients(recipeId):
     db.session().commit()
 
     return redirect(url_for("recipes_ingredients", recipeId=recipeId))
+
+@app.route("/recipes/ingredients/delete/<recipeId>", methods=["POST"])
+@login_required
+def ingredients_delete(recipeId):
+    return None
+
+
+def recipeAuthorization(recipeId):
+    userId = Recipe.query.filter_by(id=recipeId).first().account_id
+    userRole = User.get_role(current_user.id)
+    authorizedToDelete = userId == current_user.id or userRole == 'admin'
+    return authorizedToDelete
+
+def uploadImage(imageName):
+    try:
+        file = request.files[imageName]
+        upload_result = upload(file)
+        return upload_result['url']
+    except:
+        return None

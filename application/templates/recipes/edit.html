@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="card mt-3">
+    <form method="POST" action="{{ url_for('recipes_save_edit', recipeId=recipeId) }}" enctype="multipart/form-data">
+        <div class="card-header">
+            {{ form.name(class="form-control") }}
+        </div>
+        <div class="card-body">
+            {{ form.instructions(class="form-control", rows="10") }}
+            <div class="custom-file mt-3">
+                {{ form.image(class="custom-file-input", id="customFile") }}
+                <lavel class="custom-file-label" for="customFile">Change image</lavel>
+            </div>
+            <input class="btn btn-secondary btn-lg mb-3 mt-3 float-right" type="submit" value="Next" />
+        </div>
+    </form>
+</div>
+{% for error in form.image.errors %}
+<div class="alert alert-warning">
+    {{ error }}
+</div>
+{% endfor %}
+{% endblock %}

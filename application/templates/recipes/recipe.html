@@ -1,8 +1,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="card-header mt-3">
+<div class="card-header d-flex">
     <h1>{{ recipe.name }}</h1>
+    {% if authorizedToDelete %}
+    <div class="dropdown ml-auto mt-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Edit
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('recipes_edit', recipeId=recipe.id) }}">Edit</a>
+                <form method="POST" action="{{ url_for('recipe_delete', recipeId=recipe.id) }}">
+                    <input class="dropdown-item" type="submit" value="Delete" />
+                </form>
+            </div>
+    </div>
+    {% endif %}
 </div>
 {% if recipe.image != None %}
 <img src="{{ recipe.image }}" alt="Recipe image" class="img-fluid mt-3">
@@ -25,9 +38,4 @@
         <p>{{ recipe.instructions }}</p>
     </div>
 </div>
-{% if authorizedToDelete %}
-<form method="POST" action="{{ url_for('recipe_delete', recipeId=recipe.id) }}">
-    <input class="btn btn-primary btn-lg btn-block mt-5" type="submit" value="Delete" />
-</form>
-{% endif %}
 {% endblock %}

@@ -9,6 +9,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['USER_EMAIL_SENDER_EMAIL'] = 'noreply@example.com'
+app.config.from_mapping(CLOUDINARY_URL=os.environ.get('CLOUDINARY_URL'))
 
 from flask_babelex import Babel
 babel = Babel(app)
