@@ -61,7 +61,8 @@ except:
 
 # luodaan admin käyttäjä tarvittaessa
 if not User.query.filter(User.username == 'admin').first():
-    user = User(name='Administrator', username='admin', password='salasana')
+    user = User(name='Administrator', username='admin',
+                password=os.environ.get("ADMIN_PASSWORD"))
     user.roles.append(Role(name='admin'))
     db.session.add(user)
     db.session().commit()
