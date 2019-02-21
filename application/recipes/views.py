@@ -1,10 +1,12 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user, login_required
+from flask_user import roles_required
 from werkzeug.utils import secure_filename
 
 from application import app, db
 from application.items.models import Item
 from application.recipes.models import Recipe, Ingredient
+from application.auth.models import UserRoles, User, Role
 from application.recipes.forms import RecipeForm, IngredientForm
 
 from cloudinary.uploader import upload
@@ -12,12 +14,31 @@ from cloudinary.uploader import upload
 @app.route("/recipes/<recipeId>/", methods=["GET"])
 @login_required
 def recipe(recipeId):
+    userId = Recipe.query.filter_by(id=recipeId).first().account_id
+    userRole = User.get_role(current_user.id)
+    authorizedToDelete = userId == current_user.id or userRole == 'admin'
+
     recipe = Recipe.query.get(recipeId)
     ingredients = Recipe.list_recipes_ingredients(recipeId)
 
     return render_template("/recipes/recipe.html",
                             recipe=recipe,
-                            ingredients=ingredients)
+                            ingredients=ingredients,
+                            authorizedToDelete=authorizedToDelete)
+
+@app.route("/recipes/<recipeId>/", methods=["POST"])
+@login_required
+def recipe_delete(recipeId):
+    userId = Recipe.query.filter_by(id=recipeId).first().account_id
+    userRole = User.get_role(current_user.id)
+    
+    if not (userId == current_user.id or userRole == 'admin'):
+        return redirect(url_for("recipes_show"))
+
+    Recipe.query.filter_by(id=recipeId).delete()
+    db.session().commit()
+    
+    return redirect(url_for("recipes_show"))
 
 @app.route("/recipes/", methods=["GET"])
 def recipes_show():

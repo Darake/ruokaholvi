@@ -8,6 +8,10 @@ app.static_folder = 'static'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['USER_EMAIL_SENDER_EMAIL'] = 'noreply@example.com'
+
+from flask_babelex import Babel
+babel = Babel(app)
 
 # tietokanta
 from flask_sqlalchemy import SQLAlchemy
@@ -32,11 +36,13 @@ from application.recipes import models
 from application.recipes import views
 
 # kirjautuminen
-from application.auth.models import User
+from application.auth.models import User, Role
 from os import urandom
-app.config["SECRET_KEY"] = urandom(32)
+app.config["SECRET_KEY"] = os.environ.get("FV_SECRET_KEY", "")
 
 from flask_login import LoginManager
+from flask_user import UserManager
+user_manager = UserManager(app, db, User)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -52,3 +58,10 @@ try:
     db.create_all()
 except:
     pass
+
+# luodaan admin käyttäjä tarvittaessa
+if not User.query.filter(User.username == 'admin').first():
+    user = User(name='Administrator', username='admin', password='salasana')
+    user.roles.append(Role(name='admin'))
+    db.session.add(user)
+    db.session().commit()

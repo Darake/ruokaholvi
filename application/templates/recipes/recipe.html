@@ -25,4 +25,9 @@
         <p>{{ recipe.instructions }}</p>
     </div>
 </div>
+{% if authorizedToDelete %}
+<form method="POST" action="{{ url_for('recipe_delete', recipeId=recipe.id) }}">
+    <input class="btn btn-primary btn-lg btn-block mt-5" type="submit" value="Delete" />
+</form>
+{% endif %}
 {% endblock %}

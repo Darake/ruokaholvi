@@ -1,7 +1,7 @@
 import datetime
 
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user, login_required
 
 from application import app, db
 from application.items.models import Item, UserItem

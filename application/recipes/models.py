@@ -6,8 +6,8 @@ from sqlalchemy.sql import text
 
 class Ingredient(Base):
     
-    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'),
-                            nullable=False)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id', 
+                            ondelete='CASCADE'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
 
     def __init__(self, recipe_id, item_id):
