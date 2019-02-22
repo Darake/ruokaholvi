@@ -10,6 +10,7 @@
     <div class="card-body">
         <form method="POST" action="{{ url_for('recipes_ingredients', recipeId=recipeId) }}">
             <div class="input-group mb-3">
+                {{ form.amount(class="form-control col-sm-2", placeholder="Amount") }}
                 {{ form.ingredient(class="form-control", placeholder="Ingredient") }}
                 <div class="input-group-append">
                     <input class="btn btn-secondary" type="submit" value="Add ingredient" />
@@ -21,11 +22,22 @@
 
 {% for ingredient in ingredients %}
 <div class="card mt-2">
-    <div class="card-header d-flex">
-        <b class="mt-2">{{ ingredient.name }}</b>
+    <div class="card-header">
+        <div class="row">
+        <div class="col-sm-2 mt-2">
+        <b>
+            {% if ingredient.amount != None %}
+                {{ ingredient.amount }}
+            {% endif %}
+        </b>
+        </div>
+        <div class="col-sm-10 d-flex">
+        <b class="mt-2"> {{ ingredient.name }} </b> 
         <form class="ml-auto" method="POST" action="{{ url_for('ingredients_delete', ingredientId=ingredient.id , recipeId=recipeId) }}">
             <input class="btn btn-secondary" type="submit" value="Delete" />
         </form>
+        </div>
+        </div>
     </div>
 </div>
 {% endfor %}

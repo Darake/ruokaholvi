@@ -5,12 +5,14 @@ from flask_login import current_user
 from sqlalchemy.sql import text
 
 class Ingredient(Base):
+    amount = db.Column(db.String(144), nullable=True)
     
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id', 
                             ondelete='CASCADE'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
 
-    def __init__(self, recipe_id, item_id):
+    def __init__(self, amount, recipe_id, item_id):
+        self.amount = amount
         self.recipe_id = recipe_id
         self.item_id = item_id
 
@@ -34,15 +36,15 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
 
     @staticmethod
     def list_recipes_ingredients(recipeId):
-        stmt = text("SELECT item.name, ingredient.id FROM item, ingredient, recipe"
+        stmt = text("SELECT item.name, ingredient.id, ingredient.amount FROM item, ingredient, recipe"
                     " WHERE item.id = ingredient.item_id"
                     " AND ingredient.recipe_id = :recipeId"
-                    " GROUP BY item.name, ingredient.id").params(recipeId=recipeId)
+                    " GROUP BY item.name, ingredient.id, ingredient.amount").params(recipeId=recipeId)
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append({"name":row[0], "id":row[1]})
+            response.append({"name":row[0], "id":row[1], "amount":row[2]})
             
 
         return response

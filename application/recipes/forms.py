@@ -42,6 +42,7 @@ def ImageRequired(form, field):
         raise ValidationError('Only jpg, jpeg or png files allowed')
 
 class IngredientForm(FlaskForm):
+    amount = StringField("Ingredient:", [validators.Optional()])
     ingredient = StringField("Ingredient:", [validators.InputRequired()])
 
     class Meta:

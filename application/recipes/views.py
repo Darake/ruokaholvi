@@ -115,12 +115,12 @@ def recipes_ingredients(recipeId):
     
     try:
         itemId = Item.query.filter_by(name=form.ingredient.data).first().id
-        ingredient = Ingredient(recipeId, itemId)
+        ingredient = Ingredient(form.amount.data, recipeId, itemId)
     except:
         item = Item(form.ingredient.data)
         db.session().add(item)
         db.session().flush()
-        ingredient = Ingredient(recipeId, item.id)
+        ingredient = Ingredient(form.amount.data, recipeId, item.id)
 
     db.session().add(ingredient)
     db.session().commit()
