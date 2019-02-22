@@ -34,14 +34,14 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
 
     @staticmethod
     def list_recipes_ingredients(recipeId):
-        stmt = text("SELECT item.name FROM item, ingredient, recipe"
+        stmt = text("SELECT item.name, ingredient.id FROM item, ingredient, recipe"
                     " WHERE item.id = ingredient.item_id"
-                    " AND ingredient.recipe_id = :recipeId"
-                    " GROUP BY item.name").params(recipeId=recipeId)
+                    " AND ingredient.recipe_id = :recipeId").params(recipeId=recipeId)
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append(row[0])
+            response.append({"name":row[0], "id":row[1]})
+            
 
         return response

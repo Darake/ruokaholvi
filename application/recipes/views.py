@@ -99,6 +99,9 @@ def recipes_create():
 @app.route("/recipes/ingredients/<recipeId>/" , methods=["GET", "POST"])
 @login_required
 def recipes_ingredients(recipeId):
+    if not recipeAuthorization(recipeId):
+        return redirect(url_for("recipes_show"))
+
     if request.method == "GET":
         return render_template("/recipes/ingredients.html",
                                 form=IngredientForm(),
@@ -123,11 +126,16 @@ def recipes_ingredients(recipeId):
 
     return redirect(url_for("recipes_ingredients", recipeId=recipeId))
 
-@app.route("/recipes/ingredients/delete/<recipeId>", methods=["POST"])
+@app.route("/recipes/ingredients/<recipeId>/<ingredientId>/", methods=["POST"])
 @login_required
-def ingredients_delete(recipeId):
-    return None
+def ingredients_delete(recipeId, ingredientId):
+    if not recipeAuthorization(recipeId):
+        return redirect(url_for("recipes_show"))
 
+    Ingredient.query.filter_by(id=ingredientId).delete()
+    db.session.commit()
+    return redirect(url_for('recipes_ingredients',
+                            recipeId=recipeId))
 
 def recipeAuthorization(recipeId):
     userId = Recipe.query.filter_by(id=recipeId).first().account_id

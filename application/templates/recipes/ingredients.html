@@ -21,8 +21,11 @@
 
 {% for ingredient in ingredients %}
 <div class="card mt-2">
-    <div class="card-header">
-        <b>{{ ingredient }}</b>
+    <div class="card-header d-flex">
+        <b class="mt-2">{{ ingredient.name }}</b>
+        <form class="ml-auto" method="POST" action="{{ url_for('ingredients_delete', ingredientId=ingredient.id , recipeId=recipeId) }}">
+            <input class="btn btn-secondary" type="submit" value="Delete" />
+        </form>
     </div>
 </div>
 {% endfor %}

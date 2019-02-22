@@ -38,7 +38,6 @@ from application.recipes import views
 
 # kirjautuminen
 from application.auth.models import User, Role
-from os import urandom
 app.config["SECRET_KEY"] = os.environ.get("FV_SECRET_KEY", "")
 
 from flask_login import LoginManager
