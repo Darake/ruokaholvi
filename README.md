@@ -21,3 +21,37 @@ Toimintoja:
 Testikäyttäjätunnukset:  
 Username: user  
 Password: user
+
+## Asennusohjeet Linuxille  
+### Vaatimukset:  
+  * Python 3.5 tai uudempi
+  * Python pip
+  * Python venv
+  * PostgreSQL  
+  * Cloudinary ilmainen tunnus
+
+#### Projektin lataus:  
+Lataa ruokaholvin git repo zip ja purkaa se haluamasi paikkaan.  
+Avaa konsoli ja siirry konsolissa purkaamasi kansion sisälle.  
+
+#### Virtuaaliympäristö:  
+Asenna virtuaaliympäristö ja aktivoi se:  
+``` $ python3 -m venv venv ```  
+``` $ source venv/bin/activate ```  
+
+#### Kirjastot:  
+Asenna vaaditut kirjastot:  
+``` $ pip install -r requirements.txt ```
+
+#### Määritä env muuttujat:  
+Tietokannan url:  
+``` & export DATABASE_URL="oma_postgresql_tietokanta_tähän" ```  
+Autentikoinnin salainen avain:  
+``` & export FV_SECRET_KEY="oma_salainen_avain_tähän" ```  
+admin tunnuksen salasana:  
+``` & export ADMIN_PASSWORD="haluamasi_salasana_tähän" ```  
+Pilvipalvelun salainen url:  
+``` & export CLOUDINARY_URL="cloudinary_tunnuksesi_salainen_url" ```  
+
+#### Käynnistä sovellus:  
+``` $ python3 run.py ```  
