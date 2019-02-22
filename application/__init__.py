@@ -17,10 +17,7 @@ babel = Babel(app)
 # tietokanta
 from flask_sqlalchemy import SQLAlchemy
 
-if os.environ.get("HEROKU"):
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-else:
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:salasana@localhost/food_vault"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 
 db = SQLAlchemy(app)
 
