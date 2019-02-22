@@ -6,6 +6,6 @@
 
 * As an user, I can create recipes and see what recipes other users have created.
 
-* As an user, I can delete recipes that I created.
+* As an user, I can delete and edit recipes that I created.
 
-* As an admin, I can delete recipes by other users.
+* As an admin, I can delete and edit recipes by other users.
