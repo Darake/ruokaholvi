@@ -85,7 +85,7 @@ def recipes_create():
         return render_template("/recipes/new.html", form=form)
 
     url = uploadImage(form.image.name)
-
+    
     r = Recipe(form.name.data, form.instructions.data, url)
     r.account_id = current_user.id
 
