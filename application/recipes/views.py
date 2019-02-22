@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from flask_user import roles_required
 from werkzeug.utils import secure_filename
 
+import os
 from application import app, db
 from application.items.models import Item
 from application.recipes.models import Recipe, Ingredient
@@ -144,9 +145,19 @@ def recipeAuthorization(recipeId):
     return authorizedToDelete
 
 def uploadImage(imageName):
-    try:
-        file = request.files[imageName]
-        upload_result = upload(file)
-        return upload_result['url']
-    except:
-        return None
+    if os.environ.get("HEROKU"):
+        try:
+            file = request.files[imageName]
+            upload_result = upload(file)
+            return upload_result['url']
+        except:
+            return None
+    else:
+        try:
+            file = request.files[imageName]
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            app.logger.info(url_for('static', filename='uploads/'+filename))
+            return url_for('static', filename='uploads/'+filename)
+        except:
+            return None

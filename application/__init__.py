@@ -9,7 +9,15 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['USER_EMAIL_SENDER_EMAIL'] = 'noreply@example.com'
-app.config.from_mapping(CLOUDINARY_URL=os.environ.get('CLOUDINARY_URL'))
+
+
+if os.environ.get("HEROKU"):
+    app.config.from_mapping(CLOUDINARY_URL=os.environ.get('CLOUDINARY_URL'))
+    app.config["SECRET_KEY"] = os.environ.get("FV_SECRET_KEY")
+    app.config["ADMIN_PASSWORD"] = os.environ.get("ADMIN_PASSWORD")
+else:
+    app.config["SECRET_KEY"] = 'dev'
+    app.config["ADMIN_PASSWORD"] = 'salasana'
 
 from flask_babelex import Babel
 babel = Babel(app)
@@ -35,7 +43,6 @@ from application.recipes import views
 
 # kirjautuminen
 from application.auth.models import User, Role
-app.config["SECRET_KEY"] = os.environ.get("FV_SECRET_KEY", "")
 
 from flask_login import LoginManager
 from flask_user import UserManager
@@ -59,7 +66,7 @@ except:
 # luodaan admin käyttäjä tarvittaessa
 if not User.query.filter(User.username == 'admin').first():
     user = User(name='Administrator', username='admin',
-                password=os.environ.get("ADMIN_PASSWORD"))
+                password=app.config["ADMIN_PASSWORD"])
     user.roles.append(Role(name='admin'))
     db.session.add(user)
     db.session().commit()
