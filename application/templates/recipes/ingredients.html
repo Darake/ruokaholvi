@@ -24,19 +24,19 @@
 <div class="card mt-2">
     <div class="card-header">
         <div class="row">
-        <div class="col-sm-2 mt-2">
-        <b>
-            {% if ingredient.amount != None %}
-                {{ ingredient.amount }}
-            {% endif %}
-        </b>
-        </div>
-        <div class="col-sm-10 d-flex">
-        <b class="mt-2"> {{ ingredient.name }} </b> 
-        <form class="ml-auto" method="POST" action="{{ url_for('ingredients_delete', ingredientId=ingredient.id , recipeId=recipeId) }}">
-            <input class="btn btn-secondary" type="submit" value="Delete" />
-        </form>
-        </div>
+            <div class="col-sm-2 mt-2">
+                <b class="float-right">
+                    {% if ingredient.amount != None %}
+                        {{ ingredient.amount }}
+                    {% endif %}
+                </b>
+            </div>
+            <div class="col-sm-10 d-flex">
+                <b class="mt-2"> {{ ingredient.name }} </b> 
+                <form class="ml-auto" method="POST" action="{{ url_for('ingredients_delete', ingredientId=ingredient.id , recipeId=recipeId) }}">
+                    <input class="btn btn-secondary" type="submit" value="Delete" />
+                </form>
+            </div>
         </div>
     </div>
 </div>
