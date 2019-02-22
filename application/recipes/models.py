@@ -36,7 +36,8 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
     def list_recipes_ingredients(recipeId):
         stmt = text("SELECT item.name, ingredient.id FROM item, ingredient, recipe"
                     " WHERE item.id = ingredient.item_id"
-                    " AND ingredient.recipe_id = :recipeId").params(recipeId=recipeId)
+                    " AND ingredient.recipe_id = :recipeId"
+                    " GROUP BY item.name, ingredient.id").params(recipeId=recipeId)
         res = db.engine.execute(stmt)
 
         response = []
