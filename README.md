@@ -28,7 +28,19 @@ Password: user
   * Python pip
   * Python venv
   * PostgreSQL  
-  * Cloudinary ilmainen tunnus
+  
+##### Pikaopas PostgreSQL tietokannan asetukseen:  
+``` $ sudo apt-get update```  
+``` $ sudo apt-get install postgresql postgresql-contrib```  
+``` $ sudo -i -u postgres```  
+``` $ psql```  
+Korvaa password haluamallasi salasanallasi  
+``` $ ALTER USER postgres WITH ENCRYPTED PASSWORD 'password';```  
+Korvaa tietokannan_nimi haluamallasi tietokannan nimellä  
+``` $ create database tietokannan_nimi;```  
+``` $ \q```  
+
+### Asennus:  
 
 #### Projektin lataus:  
 Lataa ruokaholvin git repo zip ja purkaa se haluamasi paikkaan.  
@@ -43,15 +55,11 @@ Asenna virtuaaliympäristö ja aktivoi se:
 Asenna vaaditut kirjastot:  
 ``` $ pip install -r requirements.txt ```
 
-#### Määritä env muuttujat:  
-Tietokannan url:  
+#### Määritä tietokannan env muuttuja:  
 ``` & export DATABASE_URL="oma_postgresql_tietokanta_tähän" ```  
-Autentikoinnin salainen avain:  
-``` & export FV_SECRET_KEY="oma_salainen_avain_tähän" ```  
-admin tunnuksen salasana:  
-``` & export ADMIN_PASSWORD="haluamasi_salasana_tähän" ```  
-Pilvipalvelun salainen url:  
-``` & export CLOUDINARY_URL="cloudinary_tunnuksesi_salainen_url" ```  
+Tietokannan muuttuja on muotoa  
+postgresql://postgres:salasana@localhost/tietokannan_nimi ,
+jossa salasana on oma postgres käyttäjälle määrittämä salasana ja tietokannan_nimi tietokanta, jota aijot käyttää.
 
 #### Käynnistä sovellus:  
 ``` $ python3 run.py ```  
