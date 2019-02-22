@@ -70,3 +70,10 @@ Admin tunnarit ovat oletuksena dev-puolella:
 
 admin  
 salasana  
+
+Ohjelmisto on tarkoitettu pitämään kirjaa omista ruoka-asioista.  
+Käyttäjät pystyvät lisämään ja näkemään oman jääkaappinsa sisällön sovelluksen 'My items' osiossa. Lisäyksen yhteydessä voi myös lisätä tuotteen parasta ennen päiväyksen, joka vaikuttaa tuotteiden järjestykseen näkymässä. Näin pysyt kärryillä, mikä on lähiaikoina menossa vanhaksi. Tuotteita voi myös poistaa tai merkitä käytetyksi/vanhaksi menneeksi. Näillä on käytännön eroa tulevaisuudessa, kun sovellukseen tulee statistiikkaa omasta ruokahävikistä.  
+
+Käyttäjät pystyvät myös lisämään reseptejä 'New recipe' osiossa. Ensin lisätään reseptin nimi, ohjeet sekä kuvan, mikäli semmoisen haluaa lisätä. Kun nämä on lisätty ja painetaan 'Next' päästään raakaine osioon, jossa voidaan lisätä reseptin raaka-aineita ja vapaaehtoisesti määrän yksi kerrallaan. Painamalla 'Complete' reseptin teko on valmis.  
+
+Kaikki sivuston reseptit näkyvät 'Recipes' osiossa. Klikkaamalla haluttua reseptiä pääsee katsomaan reseptiä tarkemmin. Tässä osiossa reseptin tekijä ja adminit pysyvät myös muokkaamaan tai poistamaan reseptiä. Reseptin muokkauksessa käytetään samaa näkymää kuin sen luomisessa.
