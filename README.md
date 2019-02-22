@@ -18,7 +18,7 @@ Toimintoja:
 [Tietokantakaavio](https://github.com/Darake/ruokaholvi/blob/master/documentation/database%20diagram.png)  
 
 [Linkki sovellukseen](https://ruokaholvi.herokuapp.com/)  
-Testikäyttäjätunnukset:  
+Testikäyttäjätunnukset herokuun:  
 Username: user  
 Password: user
 
@@ -63,3 +63,10 @@ jossa salasana on oma postgres käyttäjälle määrittämä salasana ja tietoka
 
 #### Käynnistä sovellus:  
 ``` $ python3 run.py ```  
+
+## Käyttö:  
+Käytä admin tunnuksia tai rekisteröi uusi käyttäjä.  
+Admin tunnarit ovat oletuksena dev-puolella:  
+
+admin  
+salasana  
