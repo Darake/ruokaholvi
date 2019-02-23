@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="card-header d-flex">
+<div class="card-header mt-3 d-flex">
     <h1>{{ recipe.name }}</h1>
     {% if authorizedToDelete %}
     <div class="dropdown ml-auto mt-2">
@@ -39,11 +39,11 @@
         {% endfor %}
     </div>
 </div>
-<div class="card">
+<div class="card mb-3">
     <div class="card-header">
         <h2>Instructions</h2>
     </div>
-    <div class="card-body mb-3">
+    <div class="card-body">
         <div class="instructions">{{ recipe.instructions }}</div>
     </div>
 </div>
