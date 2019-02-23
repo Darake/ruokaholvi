@@ -76,4 +76,4 @@ Käyttäjät pystyvät lisämään ja näkemään oman jääkaappinsa sisällön
 
 Käyttäjät pystyvät myös lisämään reseptejä 'New recipe' osiossa. Ensin lisätään reseptin nimi, ohjeet sekä kuvan, mikäli semmoisen haluaa lisätä. Kun nämä on lisätty ja painetaan 'Next' päästään raakaine osioon, jossa voidaan lisätä reseptin raaka-aineita ja vapaaehtoisesti määrän yksi kerrallaan. Painamalla 'Complete' reseptin teko on valmis.  
 
-Kaikki sivuston reseptit näkyvät 'Recipes' osiossa. Klikkaamalla haluttua reseptiä pääsee katsomaan reseptiä tarkemmin. Tässä osiossa reseptin tekijä ja adminit pysyvät myös muokkaamaan tai poistamaan reseptiä. Reseptin muokkauksessa käytetään samaa näkymää kuin sen luomisessa.
+Kaikki sivuston reseptit näkyvät 'Recipes' osiossa. Reseptit ovat järjestetty käyttäjän tuotteidena mukaan. Jokaisen reseptin kohdalla myös näkee, kuinka monta reseptin raaka-aineista käyttäjällä jo on. Klikkaamalla haluttua reseptiä pääsee katsomaan reseptiä tarkemmin. Tässä osiossa reseptin tekijä ja adminit pysyvät myös muokkaamaan tai poistamaan reseptiä. Reseptin muokkauksessa käytetään samaa näkymää kuin sen luomisessa.
