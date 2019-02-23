@@ -70,8 +70,9 @@ def recipes_save_edit(recipeId):
     return redirect(url_for("recipes_ingredients", recipeId=recipeId))
 
 @app.route("/recipes/", methods=["GET"])
+@login_required
 def recipes_show():
-    recipes = Recipe.query.all()
+    recipes = Recipe.list_recipes_by_user_ingredients(current_user.id)
     return render_template("/recipes/list.html", recipes=recipes)
 
 @app.route("/recipes/new", methods=["GET", "POST"])

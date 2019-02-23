@@ -49,3 +49,31 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
             
 
         return response
+
+    @staticmethod
+    def list_recipes_by_user_ingredients(userId):
+        stmt = text("SELECT recipe.id, recipe.name, recipe.image, COUNT(DISTINCT ingredient.id)"
+                    " FROM item CROSS JOIN user_item CROSS JOIN account CROSS JOIN recipe"
+                    " LEFT JOIN ingredient"
+                    " ON ingredient.recipe_id = recipe.id"
+                    " AND ingredient.item_id = item.id"
+                    " AND item.id = user_item.item_id"
+                    " AND user_item.expired = false"
+                    " AND user_item.used = false"
+                    " AND user_item.account_id = :userId"
+                    " GROUP BY recipe.id, recipe.name, recipe.image"
+                    " ORDER BY COUNT(ingredient.id) DESC").params(userId=userId)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(
+                {
+                "id": row[0],
+                "name": row[1],
+                "image": row[2],
+                "userIngredient": row[3]
+                }
+            )
+        
+        return response
