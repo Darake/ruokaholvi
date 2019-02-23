@@ -3,15 +3,13 @@
 {% block body %}
 <div class="card mt-3">
     <div class="card-header">
-        Add ingredients to your recipe. </br>
-        Please use singular form when adding ingredients. </br>
-        <i>(e.g. Tomatoes -> Tomato, Jauhelihaa -> Jauheliha)</i>
+        Add ingredients to your recipe.
     </div>
     <div class="card-body">
         <form method="POST" action="{{ url_for('recipes_ingredients', recipeId=recipeId) }}">
             <div class="input-group mb-3">
                 {{ form.amount(class="form-control col-sm-2", placeholder="Amount") }}
-                {{ form.ingredient(class="form-control", placeholder="Ingredient") }}
+                {{ form.name(class="form-control", placeholder="Ingredient") }}
                 <div class="input-group-append">
                     <input class="btn btn-secondary" type="submit" value="Add ingredient" />
                 </div>
@@ -44,7 +42,7 @@
 
 <a href="{{ url_for('recipe', recipeId=recipeId) }}" class="btn btn-primary btn-lg btn-block mt-3">Complete</a>
 
-{% for error in form.ingredient.errors %}
+{% for error in form.name.errors %}
 {{ error }}
 {% endfor %}
 

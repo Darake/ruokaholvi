@@ -114,13 +114,13 @@ def recipes_ingredients(recipeId):
         return redirect(url_for("recipes_ingredients", recipeId=recipeId))
     
     try:
-        itemId = Item.query.filter_by(name=form.ingredient.data).first().id
-        ingredient = Ingredient(form.amount.data, recipeId, itemId)
+        itemId = Item.get_matching_item(form.name.data).get("id")
+        ingredient = Ingredient(form.amount.data, form.name.data, recipeId, itemId)
     except:
-        item = Item(form.ingredient.data)
+        item = Item(Item.name_to_lexeme(form.name.data))
         db.session().add(item)
         db.session().flush()
-        ingredient = Ingredient(form.amount.data, recipeId, item.id)
+        ingredient = Ingredient(form.amount.data, form.name.data, recipeId, item.id)
 
     db.session().add(ingredient)
     db.session().commit()

@@ -46,21 +46,20 @@ def items_delete(item_id):
 @login_required
 def items_create():
     form = ItemForm(request.form)
-
     if not form.validate():
         return render_template("items/list.html", 
         items = UserItem.list_users_items(),
         form = form)
 
-    ui = UserItem(form.best_before.data)
+    ui = UserItem(form.name.data, form.best_before.data)
     ui.account_id = current_user.id
     try:
-        ui.item_id = Item.query.filter_by(name=form.name.data).first().id
+        ui.item_id = Item.get_matching_item(form.name.data).get("id")
     except:
-        i = Item(form.name.data)
+        i = Item(Item.name_to_lexeme(form.name.data))
         db.session().add(i)
         db.session().commit()
-        ui.item_id = Item.query.filter_by(name=form.name.data).first().id
+        ui.item_id = Item.get_matching_item(form.name.data).get("id")
     
     db.session().add(ui)
     db.session().commit()

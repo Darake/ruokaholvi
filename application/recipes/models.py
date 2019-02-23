@@ -6,13 +6,15 @@ from sqlalchemy.sql import text
 
 class Ingredient(Base):
     amount = db.Column(db.String(144), nullable=True)
+    name = db.Column(db.String(144), nullable=False)
     
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id', 
                             ondelete='CASCADE'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
 
-    def __init__(self, amount, recipe_id, item_id):
+    def __init__(self, amount, name, recipe_id, item_id):
         self.amount = amount
+        self.name = name
         self.recipe_id = recipe_id
         self.item_id = item_id
 
@@ -36,10 +38,9 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
 
     @staticmethod
     def list_recipes_ingredients(recipeId):
-        stmt = text("SELECT item.name, ingredient.id, ingredient.amount FROM item, ingredient, recipe"
-                    " WHERE item.id = ingredient.item_id"
-                    " AND ingredient.recipe_id = :recipeId"
-                    " GROUP BY item.name, ingredient.id, ingredient.amount").params(recipeId=recipeId)
+        stmt = text("SELECT ingredient.name, ingredient.id, ingredient.amount FROM ingredient, recipe"
+                    " WHERE ingredient.recipe_id = :recipeId"
+                    " GROUP BY ingredient.name, ingredient.id, ingredient.amount").params(recipeId=recipeId)
         res = db.engine.execute(stmt)
 
         response = []

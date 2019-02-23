@@ -43,7 +43,7 @@ def ImageRequired(form, field):
 
 class IngredientForm(FlaskForm):
     amount = StringField("Ingredient:", [validators.Optional()])
-    ingredient = StringField("Ingredient:", [validators.InputRequired()])
+    name = StringField("Ingredient:", [validators.InputRequired()])
 
     class Meta:
         csrf = False
