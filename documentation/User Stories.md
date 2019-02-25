@@ -4,7 +4,9 @@
 
 * As an user, I can mark my food items used, expired or delete them so that my view of items stays updated.  
 
-* As an user, I can create recipes and see what recipes other users have created.
+* As an user, I can create new recipes.
+
+* As an user, I can see all the recipes created on the application in an order depending on items already owned.
 
 * As an user, I can delete and edit recipes that I created.
 
