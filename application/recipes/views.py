@@ -75,6 +75,12 @@ def recipes_show():
     recipes = Recipe.list_recipes_by_user_ingredients(current_user.id)
     return render_template("/recipes/list.html", recipes=recipes)
 
+@app.route("/recipes/byitem/<itemId>", methods=["GET"])
+@login_required
+def recipes_show_byItem(itemId):
+    recipes = Recipe.list_recipes_by_user_item(current_user.id, itemId)
+    return render_template("/recipes/list.html", recipes=recipes)
+
 @app.route("/recipes/new", methods=["GET", "POST"])
 @login_required
 def recipes_create():

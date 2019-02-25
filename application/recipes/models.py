@@ -77,3 +77,40 @@ class Recipe(Base, DatestampMixIn, NameMixIn):
             )
         
         return response
+
+    @staticmethod
+    def list_recipes_by_user_item(userId, user_itemId):
+        stmt = text("SELECT recipe.id, recipe.name, recipe.image, COUNT(DISTINCT ingredient.id)"
+                    " FROM item CROSS JOIN user_item CROSS JOIN account CROSS JOIN recipe"
+                    " LEFT JOIN ingredient ON recipe.id = ingredient.recipe_id"
+                    " AND ingredient.item_id = item.id"
+                    " AND item.id = user_item.item_id"
+                    " AND user_item.expired = false"
+                    " AND user_item.used = false"
+                    " AND user_item.account_id = :userId"
+                    " WHERE recipe.id IN ("
+                    "  SELECT recipe.id FROM recipe, ingredient, user_item, item"
+                    "  WHERE recipe.id = ingredient.recipe_id"
+                    "  AND ingredient.item_id = item.id"
+                    "  AND item.id = user_item.item_id"
+                    "  AND user_item.id = :user_itemId)"
+                    " GROUP BY recipe.id, recipe.name, recipe.image"
+                    " ORDER BY COUNT(ingredient.id) DESC").params(userId=userId, user_itemId=user_itemId)
+        
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(
+                {
+                "id": row[0],
+                "name": row[1],
+                "image": row[2],
+                "userIngredient": row[3]
+                }
+            )
+        
+        return response
+
+    def recipesToDictionary(response):
+        return None
