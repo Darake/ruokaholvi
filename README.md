@@ -15,6 +15,7 @@ Toimintoja:
   * Raportti omasta ruokahävikistä  
 
 [Käyttötapaukset](https://github.com/Darake/ruokaholvi/blob/master/documentation/User%20Stories.md)  
+[Puuttuvat ominaisuudet ja rajoitteet](https://github.com/Darake/ruokaholvi/blob/master/documentation/Puuttuvat%20osiot%20ja%20rajoitteet.md)  
 [Tietokantakaavio](https://github.com/Darake/ruokaholvi/blob/master/documentation/database%20diagram.png)  
 
 [Linkki sovellukseen](https://ruokaholvi.herokuapp.com/)  
