@@ -14,6 +14,8 @@ Korvaa password haluamallasi salasanallasi
 ``` $ ALTER USER postgres WITH ENCRYPTED PASSWORD 'password';```  
 Korvaa tietokannan_nimi haluamallasi tietokannan nimellä  
 ``` $ create database tietokannan_nimi;```  
+Aktivoi tarvittava laajennus  
+``` $ CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;```  
 ``` $ \q```  
 
 ## Asennus:  

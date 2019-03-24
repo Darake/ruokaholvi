@@ -1,5 +1,6 @@
 from flask_user import UserMixin, current_user
 from sqlalchemy.sql import text
+from citext import CIText
 
 from application import db
 from application.models import Base, DatestampMixIn, NameMixIn
@@ -8,7 +9,7 @@ class User(Base, DatestampMixIn, NameMixIn, UserMixin):
 
     __tablename__ = "account"
 
-    username = db.Column(db.String(144), nullable=False)
+    username = db.Column(CIText(), nullable=False, unique=True)
     password = db.Column(db.String(144), nullable=False)
 
     items = db.relationship("UserItem", backref='account', lazy=True)
