@@ -57,7 +57,7 @@ Asenna vaaditut kirjastot:
 ``` $ pip install -r requirements.txt ```
 
 #### Määritä tietokannan env muuttuja:  
-``` & export DATABASE_URL="oma_postgresql_tietokanta_tähän" ```  
+``` export DATABASE_URL="oma_postgresql_tietokanta_tähän" ```  
 Tietokannan muuttuja on muotoa  
 postgresql://postgres:salasana@localhost/tietokannan_nimi ,
 jossa salasana on oma postgres käyttäjälle määrittämä salasana ja tietokannan_nimi tietokanta, jota aijot käyttää.
