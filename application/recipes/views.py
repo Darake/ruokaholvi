@@ -118,7 +118,10 @@ def recipes_ingredients(recipeId):
 
     form = IngredientForm(request.form)
     if not form.validate():
-        return redirect(url_for("recipes_ingredients", recipeId=recipeId))
+        return render_template("/recipes/ingredients.html",
+                                form=form,
+                                ingredients=Recipe.list_recipes_ingredients(recipeId),
+                                recipeId=recipeId)
     
     try:
         itemId = Item.get_matching_item(form.name.data).get("id")

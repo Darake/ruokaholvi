@@ -15,6 +15,16 @@
                 </div>
             </div>
         </form>
+        {% for error in form.name.errors %}
+        <div class="alert alert-warning">
+            {{ error }}
+        </div>
+        {% endfor %}
+        {% for error in form.amount.errors %}
+        <div class="alert alert-warning">
+            {{ error }}
+        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -41,9 +51,5 @@
 {% endfor %}
 
 <a href="{{ url_for('recipe', recipeId=recipeId) }}" class="btn btn-primary btn-lg btn-block mt-3">Complete</a>
-
-{% for error in form.name.errors %}
-{{ error }}
-{% endfor %}
 
 {% endblock %}

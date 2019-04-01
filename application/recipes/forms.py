@@ -42,15 +42,19 @@ def ImageRequired(form, field):
         raise ValidationError('Only jpg, jpeg or png files allowed')
 
 class IngredientForm(FlaskForm):
-    amount = StringField("Ingredient:", [validators.Optional()])
-    name = StringField("Ingredient:", [validators.InputRequired()])
+    amount = StringField("Amount:", [validators.Optional(),
+                        validators.Length(max=144, message="Amount must be under 145 characters")])
+    name = StringField("Ingredient:", [validators.InputRequired(),
+                        validators.Length(max=144, message="Name must be under 145 characters")])
 
     class Meta:
         csrf = False
 
 class RecipeForm(FlaskForm):
-    name = StringField("Recipe name:", [validators.InputRequired()])
-    instructions = TextAreaField("Instructions:", [validators.InputRequired()])
+    name = StringField("Recipe name:", [validators.InputRequired(),
+                        validators.Length(max=144, message="Name must be under 145 characters")])
+    instructions = TextAreaField("Instructions:", [validators.InputRequired(),
+                                validators.Length(max=2000, message="Name must be under 2001 characters")])
     image = FileField("Image:", [ImageRequired, SmallSizeRequired])
 
     class Meta:

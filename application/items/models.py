@@ -22,7 +22,6 @@ class Item(Base):
 
         response = []
         for row in res:
-            app.logger.info(row[0])
             parts = row[0].split(',')
             response.append({"id":parts[0][1:], "lexeme":parts[1][:-1]})
 
